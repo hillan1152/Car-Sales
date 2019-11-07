@@ -1,10 +1,9 @@
-import React from 'react';
-import { createStore } from 'redux';
-import { Provider } from 'react-redux';
+import React, { useReducer } from 'react';
+import { connect } from 'react-redux';
 
-// Reducer
-import { initialState, carReducer } from './reducers';
 
+//Reducers
+import { addFeature } from './actions';
 
 //Components
 import Header from './components/Header';
@@ -13,17 +12,19 @@ import AdditionalFeatures from './components/AdditionalFeatures';
 import Total from './components/Total';
 
 
-const store = createStore(carReducer, initialState);
 
 
-const App = () => {
 
+
+const App = (state) => {
+  console.log(state)
   const removeFeature = item => {
     // dispatch an action here to remove an item
+    
   };
 
   const buyItem = item => {
-    // dipsatch an action here to add an item
+    state.addFeature(item)
   };
 
   return (
@@ -40,7 +41,18 @@ const App = () => {
   );
 };
 
-export default 
-<Provider>
-    <App/>
-</Provider>;
+const mapDispatchToProps = {
+  addFeature
+}
+
+
+const mapStateToProps = state => {
+  console.log('Map', state); 
+  return {
+        car: state.car,
+        store: state.store, 
+        additionalPrice: state.additionalPrice
+    }    
+}
+
+export default connect(mapStateToProps, {mapDispatchToProps})(App);
