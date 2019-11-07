@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 //Reducers
 import { addFeature } from './actions';
-
+import { removeFeature } from './actions';
 //Components
 import Header from './components/Header';
 import AddedFeatures from './components/AddedFeatures';
@@ -16,34 +16,21 @@ import Total from './components/Total';
 
 
 
-const App = (state) => {
-  console.log(state)
-  const removeFeature = item => {
-    // dispatch an action here to remove an item
-    
-  };
-
-  const buyItem = item => {
-    state.addFeature(item)
-  };
+const App = (props) => {
 
   return (
     <div className="boxes">
       <div className="box">
-        <Header car={state.car} />
-        <AddedFeatures car={state.car} />
+        <Header car={props.car} />
+        <AddedFeatures car={props.car}/>
       </div>
       <div className="box">
-        <AdditionalFeatures store={state.store} />
-        <Total car={state.car} additionalPrice={state.additionalPrice} />
+        <AdditionalFeatures store={props.store} />
+        <Total car={props.car} additionalPrice={props.additionalPrice} />
       </div>
     </div>
   );
 };
-
-const mapDispatchToProps = {
-  addFeature
-}
 
 
 const mapStateToProps = state => {
@@ -55,4 +42,4 @@ const mapStateToProps = state => {
     }    
 }
 
-export default connect(mapStateToProps, {mapDispatchToProps})(App);
+export default connect(mapStateToProps, {})(App);
